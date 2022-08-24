@@ -33,11 +33,7 @@ export interface Typegen0 {
     "xstate.init": { type: "xstate.init" };
     "xstate.stop": { type: "xstate.stop" };
   };
-  invokeSrcNameMap: {
-    validateAmount: "done.invoke.validateAmount";
-    validateMode: "done.invoke.validateMode";
-    validateSelect: "done.invoke.quiz.validation.valid mode:invocation[0]";
-  };
+  invokeSrcNameMap: {};
   missingImplementations: {
     actions: never;
     services: never;
@@ -54,28 +50,12 @@ export interface Typegen0 {
     assignQueryNextRes: "REQUEST";
     assignSelect: "done.invoke.quiz.validation.valid mode:invocation[0]";
   };
-  eventsCausingServices: {
-    validateAmount: "REQUEST";
-    validateMode: "done.invoke.validateAmount";
-    validateSelect: "done.invoke.validateMode";
-  };
+  eventsCausingServices: {};
   eventsCausingGuards: {};
   eventsCausingDelays: {};
   matchesStates:
     | "error validation"
-    | "get ayat"
-    | "get ayat.mode ayat"
-    | "get ayat.mode juz"
-    | "get ayat.mode surah"
     | "idle"
-    | "make question"
-    | "make question.craete question"
-    | "make question.create true answer"
-    | "make question.create true answer.after"
-    | "make question.create true answer.before"
-    | "make question.create true answer.check mode"
-    | "make question.create true answer.pick random ayat and number for question"
-    | "respons"
     | "success query"
     | "validation"
     | "validation.requested"
@@ -83,17 +63,6 @@ export interface Typegen0 {
     | "validation.valid mode"
     | "validation.valid select"
     | {
-        "get ayat"?: "mode ayat" | "mode juz" | "mode surah";
-        "make question"?:
-          | "craete question"
-          | "create true answer"
-          | {
-              "create true answer"?:
-                | "after"
-                | "before"
-                | "check mode"
-                | "pick random ayat and number for question";
-            };
         validation?:
           | "requested"
           | "valid amount"
