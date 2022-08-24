@@ -245,7 +245,7 @@ describe("Validation query select", () => {
     });
   });
 
-  test("No duplciate array select", async () => {
+  test("No duplicate array select", async () => {
     const { req, res } = createMocks({
       method: "GET",
       query: {
