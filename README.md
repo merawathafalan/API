@@ -4,4 +4,4 @@
 
 > Still in development stage
 
-Experiments building an API using XState.
+An experiment building an API using XState.
