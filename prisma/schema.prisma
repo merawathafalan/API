@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Quran {
+  id                 Int    @id
+  verse_number       Int
+  verse_key          String
+  juz_number         Int
+  hizb_number        Int
+  rub_el_hizb_number Int
+  ruku_number        Int
+  manzil_number      Int
+  sajdah_number      Int?
+  chapter_id         Int
+  text_imlaei        String
+  text_uthmani       String
+  page_number        Int
+}
+
+model Surah {
+  id               Int             @id
+  revelation_place RevelationPlace
+  revelation_order Int
+  bismillah_pre    Boolean
+  name_simple      String
+  name_complex     String
+  name_arabic      String
+  verses_count     Int
+  pageStart        Int
+  pageEnd          Int
+}
+
+enum RevelationPlace {
+  madinah
+  makkah
+}
