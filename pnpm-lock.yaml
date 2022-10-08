@@ -21,12 +21,14 @@ specifiers:
   eslint: 8.25.0
   eslint-config-next: 12.3.1
   eslint-config-prettier: ^8.5.0
+  eslint-plugin-jest-extended: ^2.0.0
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-simple-import-sort: ^8.0.0
   fast-copy: ^3.0.0
   framer-motion: ^7
   jest: ^29.1.2
   jest-environment-jsdom: ^29.1.2
+  jest-extended: ^3.1.0
   lodash: ^4.17.21
   next: 12.3.1
   node-mocks-http: ^1.11.0
@@ -71,10 +73,12 @@ devDependencies:
   eslint: 8.25.0
   eslint-config-next: 12.3.1_z4bbprzjrhnsfa24uvmcbu7f5q
   eslint-config-prettier: 8.5.0_eslint@8.25.0
+  eslint-plugin-jest-extended: 2.0.0_z4bbprzjrhnsfa24uvmcbu7f5q
   eslint-plugin-prettier: 4.2.1_hvbqyfstm4urdpm6ffpwfka4e4
   eslint-plugin-simple-import-sort: 8.0.0_eslint@8.25.0
   jest: 29.1.2_@types+node@18.8.3
   jest-environment-jsdom: 29.1.2
+  jest-extended: 3.1.0_jest@29.1.2
   node-mocks-http: 1.11.0
   pino: 8.6.1
   pino-pretty: 9.1.1
@@ -3334,6 +3338,19 @@ packages:
       - supports-color
     dev: true
 
+  /eslint-plugin-jest-extended/2.0.0_z4bbprzjrhnsfa24uvmcbu7f5q:
+    resolution: {integrity: sha512-nMhVVsVcG/+Q6FMshql35WBxwx8xlBhxKgAG08WP3BYWfXrp28oxLpJVu9JSbMpfmfKGVrHwMYJGfPLRKlGB8w==}
+    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
+    peerDependencies:
+      eslint: ^7.0.0 || ^8.0.0
+    dependencies:
+      '@typescript-eslint/utils': 5.39.0_z4bbprzjrhnsfa24uvmcbu7f5q
+      eslint: 8.25.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+    dev: true
+
   /eslint-plugin-jsx-a11y/6.6.1_eslint@8.25.0:
     resolution: {integrity: sha512-sXgFVNHiWffBq23uiS/JaP6eVR622DqwB4yTzKvGZGcPq6/yZ3WmOZfuBks/vHWo9GaFOqC2ZK4i6+C35knx7Q==}
     engines: {node: '>=4.0'}
@@ -4397,6 +4414,17 @@ packages:
       '@types/node': 18.8.3
       jest-mock: 29.1.2
       jest-util: 29.1.2
+    dev: true
+
+  /jest-extended/3.1.0_jest@29.1.2:
+    resolution: {integrity: sha512-BbuAVUb2dchgwm7euayVt/7hYlkKaknQItKyzie7Li8fmXCglgf21XJeRIdOITZ/cMOTTj5Oh5IjQOxQOe/hfQ==}
+    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
+    peerDependencies:
+      jest: '>=27.2.5'
+    dependencies:
+      jest: 29.1.2_@types+node@18.8.3
+      jest-diff: 29.1.2
+      jest-get-type: 29.0.0
     dev: true
 
   /jest-get-type/29.0.0:
