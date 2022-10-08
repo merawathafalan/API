@@ -278,6 +278,30 @@ describe("Validation query select", () => {
     const resp = res._getJSONData();
     expect(resp.select).toEqual([1, 2, 3, 6]);
   });
+
+  test("Error if select surah with ayat less than 5", async () => {
+    const surahWithAyahLessThan5 = [103, 106, 108, 110, 112];
+
+    for (let i = 0; i < surahWithAyahLessThan5.length; i++) {
+      const { req, res } = createMocks({
+        method: "GET",
+        query: {
+          amount: "10",
+          mode: "surah",
+          select: `${surahWithAyahLessThan5[i]}`,
+        },
+      });
+
+      await quizHandler(req, res);
+
+      expect(res._getStatusCode()).toBe(400);
+      const resp = res._getJSONData();
+      expect(resp.error).toEqual({
+        type: "query validation error",
+        description: `Surah dengan jumlah ayat kurang dari 5 tidak dapat dijadikan soal`,
+      });
+    }
+  });
 });
 
 describe("No Error", () => {

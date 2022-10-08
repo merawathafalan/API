@@ -55,6 +55,17 @@ export const validateSelect = (context: QuizContext) => {
     return Promise.reject(SelectIsInLimit.error.issues[0].message);
   }
 
+  // surah with ayat less than < 5
+  // SELECT chapter_id, COUNT(*) FROM "Quran" GROUP BY chapter_id HAVING COUNT(*) < 5 ORDER BY COUNT(*);
+  const surahWithAyahLessThan5 = [103, 106, 108, 110, 112];
+  if (context.mode == "surah" && SelectIsInLimit.data.length === 1) {
+    if (surahWithAyahLessThan5.includes(SelectIsInLimit.data[0])) {
+      return Promise.reject(
+        "Surah dengan jumlah ayat kurang dari 5 tidak dapat dijadikan soal",
+      );
+    }
+  }
+
   return Promise.resolve(splitSelect);
 };
 
