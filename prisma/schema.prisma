@@ -16,10 +16,10 @@ model Quran {
   rub_el_hizb_number Int
   ruku_number        Int
   manzil_number      Int
-  sajdah_number      Int?
   chapter_id         Int
   text_imlaei        String
   text_uthmani       String
+  sajdah_number      Int?
   page_number        Int
 }
 
@@ -32,8 +32,8 @@ model Surah {
   name_complex     String
   name_arabic      String
   verses_count     Int
-  pageStart        Int
   pageEnd          Int
+  pageStart        Int
 }
 
 enum RevelationPlace {
