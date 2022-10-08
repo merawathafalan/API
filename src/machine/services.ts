@@ -1,6 +1,10 @@
-import { sortBy, uniq } from "lodash";
+import copy from "fast-copy";
+import { omit, pullAt, random, shuffle, sortBy, uniq } from "lodash";
 import { z } from "zod";
 
+import { prismaClient } from "~/src/lib/prisma";
+
+import logger from "../utils/logger";
 import { QuizContext } from "./type";
 
 export const validateSelect = (context: QuizContext) => {
@@ -90,3 +94,97 @@ export const validateMode = (context: QuizContext) => {
 
   return Promise.resolve(ModeEnum.data);
 };
+
+export const getQuranData = async (context: QuizContext) => {
+  try {
+    if (context.mode === "juz") {
+      const data = await prismaClient.quran.findMany({
+        where: {
+          juz_number: { in: context.select },
+        },
+      });
+
+      return Promise.resolve(data);
+    }
+
+    const data = await prismaClient.quran.findMany({
+      where: {
+        chapter_id: { in: context.select },
+      },
+    });
+
+    return Promise.resolve(data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const createQuestion = async (context: QuizContext) => {
+  const { amount } = context;
+
+  const result: Result[] = [];
+
+  for (let i = 0; i < (amount as number); i++) {
+    result.push(QuestionFactory(context, i));
+  }
+
+  return Promise.resolve(result);
+};
+
+const QuestionFactory = (context: QuizContext, index: number) => {
+  const quranRaw = copy(
+    (context as Required<Pick<QuizContext, "quranRaw">>).quranRaw,
+  );
+
+  const result: Result = {
+    id: index,
+  };
+
+  const randomQuestionId = random(1, quranRaw.length - 2); // exclude first and last index for the answer
+  // logger.info(`Random Question Id: ${randomQuestionId}`);
+
+  result.question = {
+    text: quranRaw[randomQuestionId].text_imlaei,
+    meta: omit(quranRaw[randomQuestionId], ["text_imlaei", "text_uthmani"]),
+  };
+  // logger.info("Succes create question");
+
+  const AMOUNT_OPTION = 4;
+  const randomAnswerId = randomQuestionId + 1;
+  const trueOption: Result["options"] = [
+    {
+      value: 1,
+      option: quranRaw[randomAnswerId].text_imlaei,
+    },
+  ];
+  // logger.info("Succes create answer");
+  pullAt(quranRaw, [randomQuestionId, randomAnswerId]); // remove the question from the array
+
+  const falseOption: Result["options"] = [];
+  for (let i = 0; i < AMOUNT_OPTION - 1; i++) {
+    const randomQuestionId = random(0, quranRaw.length - 1);
+    // logger.info(`Random question id ${randomQuestionId}`);
+    falseOption.push({
+      value: 0,
+      option: quranRaw[randomQuestionId].text_imlaei,
+    });
+    // logger.info(`Success create question ${i}`);
+    pullAt(quranRaw, randomQuestionId);
+  }
+
+  result.options = shuffle([...trueOption, ...falseOption]);
+
+  return result;
+};
+
+interface Result {
+  id?: number;
+  question?: {
+    text: string;
+    meta: object;
+  };
+  options?: {
+    value: 0 | 1;
+    option: string;
+  }[];
+}

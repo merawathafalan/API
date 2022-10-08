@@ -3,6 +3,16 @@
 export interface Typegen0 {
   "@@xstate/typegen": true;
   internalEvents: {
+    "done.invoke.create question": {
+      type: "done.invoke.create question";
+      data: unknown;
+      __tip: "See the XState TS docs to learn how to strongly type this.";
+    };
+    "done.invoke.get quran data": {
+      type: "done.invoke.get quran data";
+      data: unknown;
+      __tip: "See the XState TS docs to learn how to strongly type this.";
+    };
     "done.invoke.quiz.validation.valid mode:invocation[0]": {
       type: "done.invoke.quiz.validation.valid mode:invocation[0]";
       data: unknown;
@@ -48,13 +58,17 @@ export interface Typegen0 {
       | "error.platform.validateMode";
     assignMode: "done.invoke.validateMode";
     assignQueryNextRes: "REQUEST";
+    assignQuranRaw: "done.invoke.get quran data";
+    assignResult: "done.invoke.create question";
     assignSelect: "done.invoke.quiz.validation.valid mode:invocation[0]";
   };
   eventsCausingServices: {};
   eventsCausingGuards: {};
   eventsCausingDelays: {};
   matchesStates:
+    | "create question"
     | "error validation"
+    | "get quran data"
     | "idle"
     | "success query"
     | "validation"

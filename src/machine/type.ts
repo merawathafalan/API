@@ -1,3 +1,4 @@
+import { Quran } from "@prisma/client";
 import { NextApiResponse } from "next";
 
 export interface QuizContext {
@@ -11,7 +12,8 @@ export interface QuizContext {
   mode?: string;
   res?: NextApiResponse;
   error?: string;
-  result?: number[];
+  result?: any;
+  quranRaw?: Quran[];
 }
 
 export type QuizEvent = {
